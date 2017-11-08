@@ -12,6 +12,9 @@ import java.util.Random;
 public class MainActivity extends Activity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    private static final String CITA = "cita";
+    private static final String AUTOR= "autor";
+    private static final String COLOR = "color";
 
     private TextView citaTextView;
     private TextView autorTextView;
@@ -26,7 +29,18 @@ public class MainActivity extends Activity {
         autorTextView = (TextView) findViewById(R.id.autorTextView);
         nuevaCitaButton = (Button) findViewById(R.id.nuevaCitaButton);
 
-        nuevaCita(null);
+        if(savedInstanceState != null) {
+
+            int color = savedInstanceState.getInt(COLOR);
+            citaTextView.setTextColor(color);
+            autorTextView.setTextColor(color);
+            nuevaCitaButton.setBackgroundColor(color);
+            citaTextView.setText(savedInstanceState.getString(CITA));
+            autorTextView.setText(savedInstanceState.getString(AUTOR));
+
+        } else {
+            nuevaCita(null);
+        }
 
 
 
@@ -36,6 +50,16 @@ public class MainActivity extends Activity {
                 Log.d(TAG, "Click me");
             }
         });*/
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(CITA, citaTextView.getText().toString());
+        outState.putString(AUTOR, autorTextView.getText().toString());
+        outState.putInt(COLOR, autorTextView.getCurrentTextColor());
 
     }
 
