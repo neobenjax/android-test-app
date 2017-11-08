@@ -29,18 +29,7 @@ public class MainActivity extends Activity {
         autorTextView = (TextView) findViewById(R.id.autorTextView);
         nuevaCitaButton = (Button) findViewById(R.id.nuevaCitaButton);
 
-        if(savedInstanceState != null) {
-
-            int color = savedInstanceState.getInt(COLOR);
-            citaTextView.setTextColor(color);
-            autorTextView.setTextColor(color);
-            nuevaCitaButton.setBackgroundColor(color);
-            citaTextView.setText(savedInstanceState.getString(CITA));
-            autorTextView.setText(savedInstanceState.getString(AUTOR));
-
-        } else {
-            nuevaCita(null);
-        }
+        nuevaCita(null);
 
 
 
@@ -60,6 +49,19 @@ public class MainActivity extends Activity {
         outState.putString(CITA, citaTextView.getText().toString());
         outState.putString(AUTOR, autorTextView.getText().toString());
         outState.putInt(COLOR, autorTextView.getCurrentTextColor());
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        int color = savedInstanceState.getInt(COLOR);
+        citaTextView.setTextColor(color);
+        autorTextView.setTextColor(color);
+        nuevaCitaButton.setBackgroundColor(color);
+        citaTextView.setText(savedInstanceState.getString(CITA));
+        autorTextView.setText(savedInstanceState.getString(AUTOR));
 
     }
 
